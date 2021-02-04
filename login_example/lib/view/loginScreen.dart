@@ -19,17 +19,23 @@ class LoginScreenState extends State<LoginScreen>
 
   GlobalKey<FormState> _key = GlobalKey();
 
+  //El patron de simbolos para el email
   RegExp emailRegExp =
       new RegExp(r'^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$');
+  //el patron de simbolos de la contraseña
   RegExp contRegExp = new RegExp(r'^([1-zA-Z0-1@.\s]{1,255})$');
-  String _correo;
-  String _contrasena;
+  
+  //Variables
+  String correo;
+  String password;
   String mensaje = '';
 
-  bool _logueado = false;
+  bool logueado = false;
 
+  //onCreate de android
   initState() {
     super.initState();
+    //Creamos la animación 
     controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
@@ -45,7 +51,7 @@ class LoginScreenState extends State<LoginScreen>
 //      }
 //    });
 
-    controller.forward();
+    controller.forward(); //Iniciar la animacion
   }
 
   dispose() {
@@ -57,8 +63,8 @@ class LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _logueado ? HomeScreen(mensaje: mensaje) : loginForm(),
-//      body: loginForm(),
+      body: logueado ? HomeScreen(mensaje: mensaje) : loginForm(),
+      //body: loginForm(),
     );
   }
 
@@ -97,7 +103,7 @@ class LoginScreenState extends State<LoginScreen>
                     icon:
                         Icon(Icons.email, size: 32.0, color: Colors.blue[800]),
                   ),
-                  onSaved: (text) => _correo = text,
+                  onSaved: (text) => correo = text,
                 ),
                 TextFormField(
                   validator: (text) {
@@ -119,7 +125,7 @@ class LoginScreenState extends State<LoginScreen>
                     counterText: '',
                     icon: Icon(Icons.lock, size: 32.0, color: Colors.blue[800]),
                   ),
-                  onSaved: (text) => _contrasena = text,
+                  onSaved: (text) => password = text,
                 ),
                 IconButton(
                   onPressed: () {
@@ -127,9 +133,9 @@ class LoginScreenState extends State<LoginScreen>
                       _key.currentState.save();
                       //Aqui se llamaria a su API para hacer el login
                       setState(() {
-                        _logueado = true;
+                        logueado = true;
                       });
-                      mensaje = 'Gracias \n $_correo \n $_contrasena';
+                      mensaje = 'Gracias \n $correo \n $password';
 //                      Una forma correcta de llamar a otra pantalla
 //                      Navigator.of(context).push(HomeScreen.route(mensaje));
                     }

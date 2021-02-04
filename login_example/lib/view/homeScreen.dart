@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  //Cogemos los datos de la anterior pantalla
   static Route<dynamic> route(String mensaje) {
     return MaterialPageRoute(
       builder: (context) => HomeScreen(mensaje: mensaje),
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   final String mensaje;
 
+  //Indicamos que el mensaje es obligatorio al entrar en esta ventana
   const HomeScreen({Key key, @required this.mensaje}) : super(key: key);
 
   @override
